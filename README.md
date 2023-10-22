@@ -1,3 +1,3 @@
-# Potential energy algo
+# Interval Arithmetic Code
 
-Code for potential energy minimsation algorithm. New one
+Code for Interval Arithmetic
