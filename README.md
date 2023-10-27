@@ -1,6 +1,6 @@
 # Interval Arithmetic Code
 
-Code for Interval Arithmetic.
+A recap and the code for Interval Arithmetic.
 We define a function $\widetilde{R}$ as follows: Start by defining $\widehat{\phi}:\mathbb{R} \to \mathbb{R}$ by $\widehat{\phi}(x)=\pi e^{-\sqrt{2}\pi |x|}\cos\left(\sqrt{2}\pi|x|-\frac{\pi}{4}\right)$. We then define $T_n,\mathcal{T}_n:\mathbb{R} \to \mathbb{R}$ by
 ```math
 T_n(x)=\frac{n^2+2x^2}{\left(n+\sqrt{2}x\right)^2}\cdot \frac{2x^2\left(\widehat{\phi}(x)-\widehat{\phi}\left(\frac{n}{\sqrt{2}}\right)\right)}{\left(x-\frac{n}{\sqrt{2}}\right)^2}, \ \mathcal{T}_n(x)=\frac{2x^2\left(n^2+2x^2\right)}{\left(n+\sqrt{2}x\right)^2 }\sum_{k=1}^{9}\frac{\widehat{\phi}^{(k)}\left(\frac{n}{\sqrt{2}}\right)}{k!}\left(x-\frac{n}{\sqrt{2}}\right)^{k-2}
