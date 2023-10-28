@@ -9,7 +9,7 @@ Here $\widehat{\phi}^{(k)}$ is the $k$-th derivative of $\widehat{\phi}$. Explic
 ```math
 \widehat{\phi}^{(k)}\left(\frac{n}{\sqrt{2}}\right)=\pi\left(-2\pi\right)^{k}\cos\left(\frac{\pi\left(k+1\right)}{4}\right)\left(-e^{-\pi}\right)^{n}\ .
 ```
- You can think of $\mathcal{T_n}$ as giving a taylor expansion for $T_n$ when $x$ is clsoe to $\frac{n}{\sqrt{2}}$ for some $n$. Then define $\mathcal{I}_n$ by, for some chosen $\epsilon<10^{-2}$, 
+ You can think of $\mathcal{T_n}$ as giving a taylor expansion for $T_n$ when $x$ is close to $\frac{n}{\sqrt{2}}$ for some $n$. Then define $\mathcal{I}_n$ by, for some chosen $\epsilon<10^{-2}$, 
 ```math
 \mathcal{I}_n(x)=\begin{cases}
 			\mathcal{T}_n(x) & \text{if $\left|x-\frac{n}{\sqrt{2}}\right|<\epsilon$}\\
