@@ -39,5 +39,5 @@ I've also included code simualting the behavior of $N$ particles interacting und
 ```math
 E=\frac1{N}\sum_{\substack{i,j=1 \\ i\neq j}}^Np\left(\left|x_i-x_j\right|\right).
 ```
-The way the code works is by running a gradient descent algorithm on the function $E$, and periodically plotting the current dfistribution of points. An interesting behavior observed is that for potentials of the form $p(x)=\frac1{x^{4n}+1}$, for $n \in \mathbb{N}$, the optimal configuration for large values of $r$ and $\frac{N}{r}$ is that the points tend to cluster into equally spaced positions. 
+The way the code works is by running a basic gradient descent algorithm on the function $E$, and periodically plotting the current dfistribution of points. An interesting behavior observed is that for potentials of the form $p(x)=\frac1{x^{4n}+1}$, for $n \in \mathbb{N}$, the optimal configuration for large values of $r$ and $\frac{N}{r}$ is that the points tend to cluster into equally spaced positions. 
 
