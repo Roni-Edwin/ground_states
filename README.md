@@ -1,5 +1,10 @@
 # Interval Arithmetic Code + Simulations
 
+A quick recap of what we're doing. We're explorign the ground state configurations at high densities under the potential $\phi:x \mapsto \frac1{x^4+1}$. For a configuration of points $X=\left(x_n\right)_{n=-\infty}^\infty$, we defined its (lower) $\phi$-energy $E(X)$ as the following limit inferior:  
+```math
+E(X)=\liminf_{r \to \infty}\frac1{\left|X_r\right|}\sum_{\substack{i,j \in X_r \\ i\neq j}}\phi\left(\left|x_i-x_j\right|\right) \text{ where } X_r=\left\{i:\ \left|x_{i}\right|\le r\right\}
+```
+
 A recap and the code for Interval Arithmetic.
 We define a function $\widetilde{R}$ as follows: Start by defining $\widehat{\phi}:\mathbb{R} \to \mathbb{R}$ by $\widehat{\phi}(x)=\pi e^{-\sqrt{2}\pi |x|}\cos\left(\sqrt{2}\pi|x|-\frac{\pi}{4}\right)$. We then define $T_n,\mathcal{T}_n:\mathbb{R} \to \mathbb{R}$ by
 ```math
