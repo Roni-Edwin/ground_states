@@ -1,9 +1,25 @@
 # Interval Arithmetic Code + Simulations
 
-A quick recap of what we're doing. We're explorign the ground state configurations at high densities under the potential $\phi:x \mapsto \frac1{x^4+1}$. For a configuration of points $X=\left(x_n\right)_{n=-\infty}^\infty$, we defined its (lower) $\phi$-energy $E(X)$ as the following limit inferior:  
+A quick recap of what we're doing. We're explorign the ground state configurations at high densities under the potential $\phi:x \mapsto \frac1{x^4+1}$. For a configuration of points $X=\left(x_n\right)_{n=-\infty}^\infty$, with fixed density $\rho$, we defined its (lower) $\phi$-energy $E(X)$ as the following limit inferior:  
 ```math
 E(X)=\liminf_{r \to \infty}\frac1{\left|X_r\right|}\sum_{\substack{i,j \in X_r \\ i\neq j}}\phi\left(\left|x_i-x_j\right|\right) \text{ where } X_r=\left\{i:\ \left|x_{i}\right|\le r\right\}
 ```
+We extend this to measure the average potential energy of a borel measure $\mu$ on $\mathbb{R}$. For such a measure $\mu$ with $\frac{\mu\left([-r,r]\right)}{2r} \to 1$ as $r \to \infty$, we defined its average energy (under $\phi$) $\mathcal{E}(\mu)$ by 
+```math
+\mathcal{E}(\mu)=\liminf_{r \to \infty}\frac1{\mu\left([-r,r]\right)}\int_{[-r,r]}\int_{[-r,r]}\phi\left(|x-y|\right)d\mu(x)d\mu(y).
+```
+The goal then was to find such a borel measure $\mu$ that minimises $\mathcal{E}$, and experimentally, it seemed that the optimal measure $\mu^*$ is the counting measure on the lattice $\sqrt{2}\mathbb{Z}$, normalised by $\sqrt{2}$ to have average density $1$. Explicitly, for each set $A \subset \mathbb{R}$, we set 
+```math
+\mu^*\left(A\right)=\sqrt{2}\cdot \left|\left\{n:\sqrt{2}n \in A\right\}\right|
+```
+One way to test this, experimentally, is to consider the compact version of the minimisation problem. In this case the goal here is to find a configuration of $N$ points $x_1,x_2, . . . , x_N$ that minimise the average potential energy $E$ given by 
+```math
+E=\frac1{N}\sum_{\substack{i,j=1 \\ i\neq j}}^Np\left(\left|x_i-x_j\right|\right), \text{ with } \left|x_i\right|\le r
+```
+The idea here is that for large values of $r$, and $\frac{N}{r}$, the distribution of points should approximate the 'mass distribution' of the optimal measure $\mu^*$. I did this using a basic gradient descent algorithm, and the points tend to gather into equally spaced clusters, which would seem to support this. The way the code works is by running a basic gradient descent algorithm on the function $E$, and periodically plotting the current dfistribution of points. An interesting behavior observed is that for potentials of the form $p(x)=\frac1{x^{4n}+1}$, for $n \in \mathbb{N}$, the optimal configuration for large values of $r$ and $\frac{N}{r}$ is that the points tend to cluster into equally spaced positions. The subsequent paragrpah deal with the interval arithmetic computations.
+
+
+
 
 A recap and the code for Interval Arithmetic.
 We define a function $\widetilde{R}$ as follows: Start by defining $\widehat{\phi}:\mathbb{R} \to \mathbb{R}$ by $\widehat{\phi}(x)=\pi e^{-\sqrt{2}\pi |x|}\cos\left(\sqrt{2}\pi|x|-\frac{\pi}{4}\right)$. We then define $T_n,\mathcal{T}_n:\mathbb{R} \to \mathbb{R}$ by
