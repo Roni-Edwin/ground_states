@@ -25,37 +25,54 @@ The idea here is that for large values of $r$, and $\frac{N}{r}$, the distributi
 
 
 # Interval Arithmetic
-A recap and the code for Interval Arithmetic. 
-We define a function $\widetilde{R}$ as follows: Start by defining $\widehat{\phi}:\mathbb{R} \to \mathbb{R}$ by $\widehat{\phi}(x)=\pi e^{-\sqrt{2}\pi |x|}\cos\left(\sqrt{2}\pi|x|-\frac{\pi}{4}\right)$. We then define $T_n,\mathcal{T}_n:\mathbb{R} \to \mathbb{R}$ by
+A recap and the code for Interval Arithmetic. We have the function $\mathcal{R}$ given by 
 ```math
-T_n(x)=\frac{n^2+2x^2}{\left(n+\sqrt{2}x\right)^2}\cdot \frac{2x^2\left(\widehat{\phi}(x)-\widehat{\phi}\left(\frac{n}{\sqrt{2}}\right)\right)}{\left(x-\frac{n}{\sqrt{2}}\right)^2}, \ \mathcal{T}_n(x)=\frac{2x^2\left(n^2+2x^2\right)}{\left(n+\sqrt{2}x\right)^2 }\sum_{k=1}^{9}\frac{\widehat{\phi}^{(k)}\left(\frac{n}{\sqrt{2}}\right)}{k!}\left(x-\frac{n}{\sqrt{2}}\right)^{k-2}
+\mathcal{R}(\xi):=\sum_{n=-\infty}^\infty H(\xi,n)
 ```
-Here $\widehat{\phi}^{(k)}$ is the $k$-th derivative of $\widehat{\phi}$. Explicitly,
+where $H(\xi,n)$ for $\xi\ge 0$, $n \in \mathbb{Z}$ is given by
 ```math
-\widehat{\phi}^{(k)}\left(\frac{n}{\sqrt{2}}\right)=\pi\left(-2\pi\right)^{k}\cos\left(\frac{\pi\left(k+1\right)}{4}\right)\left(-e^{-\pi}\right)^{n}\ .
+H(\xi,n)=\frac{2\xi^2\left(\widehat{\phi}(\xi)-\widehat{\phi}\left(\frac{n}{\sqrt{2}}\right)\right)}{\left(n-\sqrt{2}\xi\right)^2}.
 ```
- You can think of $\mathcal{T_n}$ as giving a taylor expansion for $T_n$ when $x$ is close to $\frac{n}{\sqrt{2}}$ for some $n$. Then define $\mathcal{I}_n$ by, for some chosen $\epsilon<10^{-2}$, 
+Our goal in this part is to show that 
 ```math
-\mathcal{I}_n(x)=\begin{cases}
-			\mathcal{T}_n(x) & \text{if $\left|x-\frac{n}{\sqrt{2}}\right|<\epsilon$}\\
-            T_n(x) & \text{otherwise}
-		 \end{cases}
+\mathcal{R}(\xi)\ge -\sum_{n=-\infty}^\infty\widehat{\phi}\left(\frac{n}{\sqrt{2}}\right)=-\frac{\pi}{\sqrt{2}}\tanh\left(\frac{\pi}{\sqrt{2}}\right)
 ```
-We then set 
+for $0\le \xi\le 8$. We defined the truncated series for $\mathcal{R}(\xi)$, $\mathcal{R}_p(\xi)$ given by 
 ```math
-\widetilde{R}(x)=\widehat{\phi}\left(x\right)-\widehat{\phi}(0)+\sum_{n=1}^{5\cdot 10^4} \mathcal{I}_n(x)
+\mathcal{R}_p(\xi)=\sum_{|n|\le p}H(\xi,n).
 ```
-Witht his definition, we aim to show $\widetilde{R}\ge  -\frac{\pi}{\sqrt{2}}\tanh\left(\frac{\pi}{2}\right)+\frac{681}{2^{20}}+10^{-10}$ on $[0,14]$. To do this, we introduce an auxialiary function $\widetilde{R_2}$ given by
-```math
-\widetilde{R}_2(x):=\widehat{\phi}(x)-\widehat{\phi}(0)+T_1\left(\frac1{\sqrt{2}}\right)+\sum_{n=2}^{5\cdot 10^4}\mathcal{I}_n(x)=\widehat{\phi}(x)-\widehat{\phi}(0)+\frac{\pi^3 e^{-\pi}}{\sqrt{2}}+\sum_{n=2}^{5\cdot 10^4}\mathcal{I}_n(x)\ .
-```
-We've seen(inlcude link) that for $\left|x-\frac1{\sqrt{2}}\right|\le 0.015$, $\left|\mathcal{R}(x)-\widetilde{R}_2(x)\right|\le \frac{681}{2^{20}}+0.2+10^{-10}$. So we the way we show the desired inequality is to first check that 
-```math
-\widetilde{R}_2(x)\ge -\frac{\pi}{\sqrt{2}}\tanh\left(\frac{\pi}{2}\right)+\frac{681}{2^{20}}+0.2+10^{-10} \text{ for } x \in \left[\frac1{\sqrt{2}}-0.015,\frac1{\sqrt{2}}+0.015\right]
-```
-then show 
-```math
-\widetilde{R}(x)\ge  -\frac{\pi}{\sqrt{2}}\tanh\left(\frac{\pi}{2}\right)+\frac{681}{2^{20}}+10^{-10} \text{ on } \left[0,14\right]\setminus \left[\frac1{\sqrt{2}}-0.015,\frac1{\sqrt{2}}+0.015\right]\ .
-```
-To do this we use the IntervalArithemtic package. The way it works basically, is that once you've defined your function $f$, you pass in you interval $I$ and returns an interval $J$ such that $f\left(I\right)\subset J$. Here attention to detail is important, especially when working with numbers that aren't representable exactly with floating point arithmetic, such as $\pi$, $e$, and $\frac{4}{3}$. So when implenting the function $f$, it's important to make sure you represent these constants as degenrate intervals. So for example, you would use $[\pi,\pi]$ (instead of just $\pi$), which Julia would represent as a small interval containing the true value of $\pi$, rather than its floating point representation. With this implementation, the general outline of the code is as follows. We have our function $f$. Let $f^*(I)$ denote the interval returned by Julia, so we wish to show  and wish to show $f\left(I\right)> [l,l]$. For two intervals $[a,b]$, $[c,d]$, $[a,b]>[c,d]$ means $a>d$. The way the code works is like so. Suppose $I=[a,b]$. Intialize $d$ to $b-a$, and repeatedly check if $f\left([a,a+d]\right)>[l,l]$, and if not, reassign $l \to \frac{l}{2}$. Once we find some $l$ for which this works, we reassing $a \to l$, and repeat until we've covered the whole interval $[a,b]$. This is why I defined $\mathcal{R}_2$, because I was running into an infinite loop.
 
+We then showed that if $p>11$, then 
+```math
+\mathcal{R}(\xi)\ge \mathcal{R}_p(\xi)-B(\xi,p)
+```
+where 
+```math
+ B(\xi,p):=\frac{4p\xi^2\left|\widehat{\phi}(\xi)\right|}{p^2-2\xi^2}+2\xi^2 e^{-\pi p}\left(\frac{0.1}{p-\sqrt{2}\xi}+\frac{0.15}{\left(p+\sqrt{2}\xi\right)^2}\right)
+```
+So we will now show that 
+```math
+\mathcal{R}_p(\xi)-B(\xi,p)\ge -\frac{\pi}{\sqrt{2}}\tanh\left(\frac{\pi}{\sqrt{2}}\right)
+```
+for $0\le \xi\le 8$. To avoid large uncertainties in the computed value of $H(\xi,n)$ (the denominator might get really small), we introduced a lower bound for $H(\xi,n)$, $\widetilde{H}(\xi,n)$, given by 
+```math
+H_{low}(\xi,n)=-\frac{n^2\sqrt{2}\pi^3\left(-1\right)^{n}e^{-\pi n}}{2}-\frac{\xi^2}{6}\left|\xi-\frac{n}{\sqrt{2}}\right|e^{\pi\left|\sqrt{2}\xi-n\right|}\cdot 8\pi^4e^{-\sqrt{2}\pi \xi}.
+```
+We showed that $H(\xi,n)\ge H_{low}(\xi,n)$ for $\xi\ge 0$ and $n\ge 0$ an integer. Choose some precision value $\varepsilon>0$, and define $\widetilde{H}(\xi,n)$ by 
+```math
+\widetilde{H}(\xi,n)=\begin{cases}
+    H(\xi,n) & \text{if } \left|n-\sqrt{2}\xi\right|\ge \varepsilon \text{ or } n<0 \\
+     H_{low}(\xi,n)& \text{if } \left|n-\sqrt{2}\xi\right|<\varepsilon,
+\end{cases}
+```
+ so that $H(\xi,n)\ge \widetilde{H}(\xi,n)$, and consequently, 
+ ```math
+\mathcal{R}_p(\xi)\ge \sum_{|n|\le p}\widetilde{H}(\xi,n) 
+```
+So our new goal is to show that 
+```math
+\sum_{|n|\le p}\widetilde{H}(\xi,n)-B(\xi,p)\ge -\frac{\pi}{\sqrt{2}}\tanh\left(\frac{\pi}{\sqrt{2}}\right)
+```
+for $0\le \xi\le p$. In the code, we set $\varepsilon=2^{-6}$. 
+
+To do this we use the IntervalArithemtic package. The way it works basically, is that once you've defined your function $f$, you pass in you interval $I$ and returns an interval $J$ such that $f\left(I\right)\subset J$. Here attention to detail is important, especially when working with numbers that aren't representable exactly with floating point arithmetic, such as $\pi$, $e$, and $\frac{4}{3}$. So when implenting the function $f$, it's important to make sure you represent these constants as degenrate intervals. So for example, you would use $[\pi,\pi]$ (instead of just $\pi$), which Julia would represent as a small interval containing the true value of $\pi$, rather than its floating point representation. With this implementation, the general outline of the code is as follows. We have our function $f$. Let $f^*(I)$ denote the interval returned by Julia, so we wish to show  and wish to show $f\left(I\right)> [l,l]$. For two intervals $[a,b]$, $[c,d]$, $[a,b]>[c,d]$ means $a>d$. The way the code works is like so. Suppose $I=[a,b]$. Intialize $d$ to $b-a$, and repeatedly check if $f\left([a,a+d]\right)>[l,l]$, and if not, reassign $l \to \frac{l}{2}$. Once we find some $l$ for which this works, we reassing $a \to l$, and repeat until we've covered the whole interval $[a,b]$. 
