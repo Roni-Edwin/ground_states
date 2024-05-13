@@ -56,13 +56,13 @@ So we will now show that
 ```
 for $0\le \xi\le 8$. To avoid large uncertainties in the computed value of $H(\xi,n)$ (the denominator might get really small), we introduced a lower bound for $H(\xi,n)$, $\widetilde{H}(\xi,n)$, given by 
 ```math
-H_{low}(\xi,n)=-\frac{n^2\sqrt{2}\pi^3\left(-1\right)^{n}e^{-\pi n}}{2}-\frac{\xi^2}{6}\left|\xi-\frac{n}{\sqrt{2}}\right|e^{\pi\left|\sqrt{2}\xi-n\right|}\cdot 8\pi^4e^{-\sqrt{2}\pi \xi}.
+H_{l}(\xi,n)=-\frac{n^2\sqrt{2}\pi^3\left(-1\right)^{n}e^{-\pi n}}{2}-\left|\xi-\frac{n}{\sqrt{2}}\right|\left(\frac{\xi^2}{6}e^{\pi\left|\sqrt{2}\xi-n\right|}\cdot 8\pi^4e^{-\sqrt{2}\pi \xi}+2\pi^3e^{-\pi n}\left(\xi+\frac{n}{\sqrt{2}}\right)\right).
 ```
-We showed that $H(\xi,n)\ge H_{low}(\xi,n)$ for $\xi\ge 0$ and $n\ge 0$ an integer. Choose some precision value $\varepsilon>0$, and define $\widetilde{H}(\xi,n)$ by 
+We showed that $H(\xi,n)\ge H_{l}(\xi,n)$ for $\xi\ge 0$ and $n\ge 0$ an integer. Choose some precision value $\varepsilon>0$, and define $\widetilde{H}(\xi,n)$ by 
 ```math
 \widetilde{H}(\xi,n)=\begin{cases}
     H(\xi,n) & \text{if } \left|n-\sqrt{2}\xi\right|\ge \varepsilon \text{ or } n<0 \\
-     H_{low}(\xi,n)& \text{if } \left|n-\sqrt{2}\xi\right|<\varepsilon,
+     H_{l}(\xi,n)& \text{if } \left|n-\sqrt{2}\xi\right|<\varepsilon,
 \end{cases}
 ```
  so that $H(\xi,n)\ge \widetilde{H}(\xi,n)$, and consequently, 
