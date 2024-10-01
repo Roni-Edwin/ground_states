@@ -17,6 +17,6 @@ The goal then is to find a borel measure $\mu_{opt}$, with  $\frac{\mu_{opt}\lef
 ```math
 \mu_{opt,\alpha}\left(A\right)=s_\alpha \sum_{n =-\infty}^\infty \delta\left(s_\alpha n\right),
 ```
-where $\delta(x)$ is the dirac measure at $x$. This repository contains the necessary code used in proving this.
+where $\delta(x)$ is the dirac measure at $x$. This repository contains the necessary code used in proving this. Here is the original arXiv eprint for reference: https://doi.org/10.48550/arXiv.2405.11428
 
 
