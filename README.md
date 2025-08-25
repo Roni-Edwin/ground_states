@@ -23,12 +23,12 @@ The first order of business is verifying that $s_\alpha>1$. For $t>0$, define th
 ```math
     E_\alpha(t)=\sum_{n \in \mathbb{Z}}\frac{t}{1+t^\alpha n^\alpha},
 ```
-and let $s_\alpha$ minimise $E_\alpha(t)$. Then $c(\alpha)\coloneqq (s_\alpha)^\alpha >1$. This is proven in https://doi.org/10.48550/arXiv.2405.11428 when $\alpha=4$ and $\alpha\ge 16$, so it remains to check this for $\alpha \in \{6,8,10,12\}$. For each such $\alpha$, the table below shows the range of the candidate value of $\alpha$: 
+and let $s_\alpha$ minimise $E_\alpha(t)$. Then $s_\alpha >1$. This is proven in https://doi.org/10.48550/arXiv.2405.11428 when $\alpha=4$ and $\alpha\ge 16$, so it remains to check this for $\alpha \in \{6,8,10,12\}$. For each such $\alpha$, the table below shows the range of the candidate value of $\alpha$: 
 
 
 
-| $\alpha$ |Lower bound for $c(\alpha)$| Upper bound for $(s_\alpha)^\alpha$ | Upper bound for Energy |
-| :------ | :----: | :-----: | -----: |
+| $\alpha$ |Lower bound for $$\left(s_{\alpha}\right)^\alpha$$ | Upper bound for $$\left(s_\alpha\right)^\alpha$$ | Upper bound for $$E_\alpha(s_\alpha)$$ |
+| ------ | ---- | ----- | ----- |
 | $6$ | $7.83668$ | $7.83669$ | $1.73458$ |
 |  $8$ | $11.813148$ | $11.813151$ | $1.57506$ |
 |  $10$ | $15.830697$ | $15.830699$ | $1.47491$ |
