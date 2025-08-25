@@ -213,8 +213,11 @@ so from small $t$, we instead show
 ```
 
 <br>
+<br>
+<br>
+<br>
 
-The last thing to do is to show the following. Let $\eta(x)$ be $x$ rounded up to the nearest integer. Then when $6\le \alpha\le 14$, and $1.5\le x\le 10$,
+The penultimate thing to do is to show the following. Let $\eta(x)$ be $x$ rounded up to the nearest integer. Then when $6\le \alpha\le 14$, and $1.5\le x\le 10$,
 
 ```math
  \sum_{n \in \mathbb{Z}\setminus\{\eta(x)\}}\left(\frac{F_\alpha(n)}{\left(x-n\right)^2}+\frac{F_\alpha'(n)}{x-n}\right) \le 0.
@@ -236,6 +239,25 @@ we get
 ```math 
 \left|\sum_{\substack{n \in \mathbb{Z} \\ |n|\ge p}}\left(\frac{F_\alpha(n)}{\left(x-n\right)^2}+\frac{F_\alpha'(n)}{x-n}\right)\right|\le 8\sum_{n=p}^\infty(\alpha+1)F_\alpha(n)\le 8(\alpha+1)\sum_{n=p}^\infty \frac1{n^\alpha}\le 8(\alpha+1)\cdot \frac1{p^\alpha}\left(\frac{\alpha+p-1}{\alpha-1}\right).
 ```
+
+<br>
+<br>
+
+Finally we have to check that 
+```math
+ \sum_{\substack{n \in \mathbb{Z}}}\left(3n^2F_\alpha(n)+n^3F_\alpha'(n)\right)+\frac{16}{100s_\alpha^\alpha}+\frac{10F_\alpha(1)+2F_\alpha'(1)}{99}+\sum_{n=2}^\infty\frac{\left|10n^4F_\alpha(n)+2n^5F_\alpha'(n)\right|}{5}+\frac{8\alpha+2}{10^{\alpha-2}}\le 0.
+```
+From the derivative formula
+```math
+F_\alpha'(x)=-\frac{\alpha F_\alpha(x)\left(1-F_\alpha(x)\right)}{x},
+```
+we see that $3n^2F_\alpha(n)+n^3F_\alpha'(n)\le 0$ if $|n|\ge 2$. What is left is to bound the tail of the other series. We have 
+```math
+\sum_{n=p}^\infty\frac{\left|10n^4F_\alpha(n)+2n^5F_\alpha'(n)\right|}{5}\le \sum_{n=p}^\infty \frac{(2\alpha+10)n^4F_\alpha(n)}{5}\le \frac{2\alpha+10}{5}\sum_{n=p}^\infty \frac1{n^{\alpha-4}}\le \frac{2\alpha+10}{5}\cdot \frac1{p^{\alpha-4}}\left(\frac{\alpha-5+p}{\alpha-5}\right).
+```
+
+
+
 
 
 
